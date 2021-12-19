@@ -18,28 +18,44 @@ print(rFact(4.9))
 
 #  Flood fill
 
-def floodFill(canvas2D,startXY,newColor,column, row):
-    if startXY == 3:
-        startXY == newColor
-        print(startXY)
-        return canvas2D
-
-
 canvas2D = [
     [3,2,3,4,3],
     [2,3,3,4,0],
     [7,3,3,5,3],
     [6,5,3,4,1],
-    [1,2,3,3,]]
-
-startXY = [2,2]
-
+    [1,2,3,3,3]]
 newColor = 1
+col = 2
+row = 2
+startXY = canvas2D[2][2]
 
-print(floodFill(canvas2D = [
-    [3,2,3,4,3],
-    [2,3,3,4,0],
-    [7,3,3,5,3],
-    [6,5,3,4,1],
-    [1,2,3,3,]]
-, startXY = [2,2], newColor = 1))
+def dfs(canvas2D, col, row, startXY, newColor):
+    n = len(canvas2D)
+    m = len(canvas2D[0])
+
+    if col < 0 or col >= n or row < 0 or row >= m:
+        return
+    elif canvas2D[col][row] != startXY:
+        return
+
+    else:
+        canvas2D[col][row] = newColor
+        dfs(canvas2D, col+1, row, startXY, newColor)
+        dfs(canvas2D, col, row+1, startXY, newColor)
+        dfs(canvas2D, col-1, row, startXY, newColor)
+        dfs(canvas2D, col, row-1, startXY, newColor)
+
+def floodFill(canvas2D, col, row, newColor):
+    startXY = canvas2D[2][2]
+
+    if startXY == newColor:
+        return
+
+print(dfs(canvas2D, col, row, startXY, newColor))
+for star in canvas2D:
+    print(star)
+# print(canvas2D)
+
+
+
+
